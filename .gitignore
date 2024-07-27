@@ -130,3 +130,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+
+.fastRequest/config/fastRequestCurrentProjectConfig.json
+
+.fastRequest/config/fastRequestCurrentProjectEnvironment.json
