@@ -1,19 +1,15 @@
-name: End-to-end tests
-
-on:
-  push: # Trigger the workflow on code pushes
-    branches:
-      - 'main' # Only run on the main branch
-  pull_request: # Also run on pull requests
-  workflow_dispatch: # Manually trigger the workflow if needed
-
+name: Cypress Tests
+on: [push]
 jobs:
-  cypress-run:
-    runs-on: ubuntu-latest # Choose your runner environment (e.g., macOS, Windows, etc.)
+ Cypress-Test:
+   runs-on: ubuntu-latest
+   steps:
+     - name: Checkout GitCode
+       uses: actions/checkout@v4
+ 
+     - name: Run Cypress Test
+       uses: cypress-io/github-action@v4
+       with:
+         command: npx cypress run
+         browser: chrome
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4 # Fetch your code from the repository
-
-      - name: Install dependencies and run Cypress
-        uses: cypress-io/github-action@v6 # This action installs Cypress and runs your tests
