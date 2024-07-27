@@ -1,29 +1,19 @@
-name: Run Cypress Tests
+name: End-to-end tests
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  push: # Trigger the workflow on code pushes
+    branches:
+      - 'main' # Only run on the main branch
+  pull_request: # Also run on pull requests
+  workflow_dispatch: # Manually trigger the workflow if needed
 
 jobs:
   cypress-run:
-    runs-on: ubuntu-20.04
-    # Cypress Docker image with Chrome v91
-    # and Firefox v89 pre-installed
-    container: cypress/browsers:node14.19.0-chrome100-ff99-edge
+    runs-on: ubuntu-latest # Choose your runner environment (e.g., macOS, Windows, etc.)
+
     steps:
-      - uses: actions/checkout@v1
-      - uses: cypress-io/github-action@v4
-        with:
-          browser: chrome
-      - uses: actions/upload-artifact@v1
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-      - uses: actions/upload-artifact@v1
-        if: always()
-        with:
-          name: cypress-videos
-          path: cypress/videos
+      - name: Checkout code
+        uses: actions/checkout@v4 # Fetch your code from the repository
+
+      - name: Install dependencies and run Cypress
+        uses: cypress-io/github-action@v6 # This action installs Cypress and runs your tests
