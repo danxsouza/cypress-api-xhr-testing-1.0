@@ -11,5 +11,5 @@ describe('Post Request', () => {
     }).then(response => {
       expect(response.status).to.eq(201);
     })
-  });
+  })
 })
