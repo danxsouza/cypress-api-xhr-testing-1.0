@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 describe('Get Request', () => {
     let result;
     it('Validade Status Code of the /post api', () => {
@@ -16,10 +14,14 @@ describe('Get Request', () => {
            }
        }).then(response => {
            let body = JSON.parse(JSON.stringify(response.body));
-           cy.log(body);
 
            expect(body[0]).has.property('title', 'Another Example Json Server');
            expect(body[1]).has.property('title', 'New Example Server');
+
+           body.forEach(function(item) {
+               expect(item).to.have.all.keys('id', 'title', 'author');
+               cy.log("Author: " + item['author'] + " & Title: " + item['title']);
+           })
        })
 
     });
